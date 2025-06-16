@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Cadastro de Produto</title>
+</head>
+
+<body>
+    <h1>Cadastro de Produto</h1>
+    <a href="/">Voltar</a>
+    <form method="POST" action="/produtos/cadastrar" enctype="multipart/form-data">
+        <label>Nome do Produto (obrigatório):</label><br />
+        <input type="text" name="nome" placeholder="Insira o nome do produto" required /><br /><br />
+
+        <label>Código de Barras:</label><br />
+        <input type="number" name="codigoBarras" placeholder="Insira o código de barras" /><br /><br />
+
+        <label>Descrição (obrigatório):</label><br />
+        <textarea name="descricao" placeholder="Descreva brevemente o produto" required></textarea><br /><br />
+
+        <label>Quantidade em Estoque:</label><br />
+        <input type="number" name="quantidade" placeholder="Quantidade disponível" /><br /><br />
+
+        <label>Categoria (obrigatório):</label><br />
+        <select name="categoria" required>
+            <option value="">Selecione a categoria</option>
+            <option value="Eletrônicos">Eletrônicos</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Vestuário">Vestuário</option>
+            <option value="Outro">Outro</option>
+        </select><br /><br />
+
+        <label>Data de Validade (se aplicável):</label><br />
+        <input type="date" name="validade" placeholder="Selecione a data de validade" /><br /><br />
+
+        <label>Imagem do Produto (se aplicável):</label><br />
+        <input type="file" name="imagem" accept="image/*" /><br /><br />
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</body>
+
+</html>
