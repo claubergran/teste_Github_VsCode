@@ -15,5 +15,8 @@
     "url": "https://github.com/claubergran/teste_Github_VsCode/issues"
   },
   "homepage": "https://github.com/claubergran/teste_Github_VsCode#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
