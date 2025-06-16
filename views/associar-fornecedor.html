@@ -4,107 +4,172 @@
 <head>
     <meta charset="UTF-8">
     <title>Associação de Fornecedor a Produto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #004aad;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #00337a;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #004aad;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .produto-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .fornecedor-lista {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cccccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .btn-desassociar {
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-desassociar:hover {
+            background-color: #d93636;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Associação de Fornecedor a Produto</h1>
-    <a href="/">Voltar</a>
+    <div class="container">
+        <h1>Associação de Fornecedor a Produto</h1>
+        <a href="/">Voltar</a>
 
-    <!-- Detalhes do Produto -->
-    <h2>Detalhes do Produto</h2>
-    <form id="produtoForm">
-        <label>Nome do Produto:</label><br>
-        <input type="text" id="nomeProduto" readonly><br><br>
+        <div class="produto-info">
+            <label>Nome do Produto:</label>
+            <input type="text" value="Produto Exemplo" readonly>
 
-        <label>Código de Barras:</label><br>
-        <input type="text" id="codigoBarras" readonly><br><br>
+            <label>Código de Barras:</label>
+            <input type="text" value="1234567890123" readonly>
 
-        <label>Descrição:</label><br>
-        <textarea id="descricaoProduto" readonly></textarea><br><br>
+            <label>Descrição:</label>
+            <input type="text" value="Descrição do produto exemplo" readonly>
 
-        <label>Imagem do Produto:</label><br>
-        <img id="imagemProduto" src="" alt="Imagem do Produto" width="150"><br><br>
-    </form>
+            <label>Imagem do Produto:</label><br>
+            <img src="/uploads/exemplo.jpg" alt="Imagem do Produto" width="100">
+        </div>
 
-    <!-- Associação de Fornecedor -->
-    <h2>Associar Fornecedor</h2>
-    <form id="associarForm" method="POST">
-        <label>Selecione um Fornecedor:</label><br>
-        <select name="fornecedorCnpj" id="fornecedorCnpj" required>
-            <option value="">Selecione um fornecedor</option>
-        </select><br><br>
+        <form method="POST" action="/associar-fornecedor">
+            <label>Selecione um Fornecedor:</label>
+            <select name="fornecedorId" required>
+                <option value="" disabled selected>Selecione um fornecedor</option>
+                <option value="1">Fornecedor A - 00.000.000/0000-00</option>
+                <option value="2">Fornecedor B - 11.111.111/0000-11</option>
+            </select>
 
-        <button type="submit">Associar Fornecedor</button>
-    </form>
+            <button type="submit">Associar Fornecedor</button>
+        </form>
 
-    <!-- Fornecedores Associados -->
-    <h2>Fornecedores Associados</h2>
-    <table border="1" id="fornecedoresAssociados">
-        <thead>
-            <tr>
-                <th>Nome do Fornecedor</th>
-                <th>CNPJ</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- As associações serão carregadas aqui -->
-        </tbody>
-    </table>
-
-    <script>
-        // Simular dados carregados do servidor
-        // No futuro você pode substituir por API via fetch
-        const produto = JSON.parse(localStorage.getItem('produtoSelecionado') || '{}');
-        const fornecedores = JSON.parse(localStorage.getItem('fornecedores') || '[]');
-        const associacoes = JSON.parse(localStorage.getItem('associacoes') || '[]');
-
-        // Preencher detalhes do produto
-        document.getElementById('nomeProduto').value = produto.nome || '';
-        document.getElementById('codigoBarras').value = produto.codigoBarras || '';
-        document.getElementById('descricaoProduto').value = produto.descricao || '';
-        if (produto.imagem) {
-            document.getElementById('imagemProduto').src = '/uploads/' + produto.imagem;
-        }
-
-        // Preencher dropdown de fornecedores
-        const selectFornecedor = document.getElementById('fornecedorCnpj');
-        fornecedores.forEach(f => {
-            const option = document.createElement('option');
-            option.value = f.cnpj;
-            option.text = f.nome;
-            selectFornecedor.appendChild(option);
-        });
-
-        // Exibir fornecedores associados
-        function carregarFornecedoresAssociados() {
-            const tbody = document.querySelector('#fornecedoresAssociados tbody');
-            tbody.innerHTML = '';
-            associacoes.filter(a => a.produtoCodigoBarras === produto.codigoBarras)
-                .forEach(a => {
-                    const fornecedor = fornecedores.find(f => f.cnpj === a.fornecedorCnpj);
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${fornecedor.nome}</td>
-                        <td>${fornecedor.cnpj}</td>
-                        <td>
-                            <form method="POST" action="/produtos/${produto.codigoBarras}/desassociar">
-                                <input type="hidden" name="fornecedorCnpj" value="${fornecedor.cnpj}">
-                                <button type="submit">Desassociar</button>
-                            </form>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-        }
-
-        carregarFornecedoresAssociados();
-
-        // Configurar formulário de associação
-        const associarForm = document.getElementById('associarForm');
-        associarForm.action = `/produtos/${produto.codigoBarras}/associar`;
-
-    </script>
+        <div class="fornecedor-lista">
+            <h2>Fornecedores Associados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome do Fornecedor</th>
+                        <th>CNPJ</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fornecedor A</td>
+                        <td>00.000.000/0000-00</td>
+                        <td><button class="btn-desassociar">Desassociar</button></td>
+                    </tr>
+                    <tr>
+                        <td>Fornecedor B</td>
+                        <td>11.111.111/0000-11</td>
+                        <td><button class="btn-desassociar">Desassociar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
