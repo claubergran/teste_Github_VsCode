@@ -1,0 +1,19 @@
+{
+  "name": "projeto_integrador",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claubergran/teste_Github_VsCode.git"
+  },
+  "author": "Clauber Acioli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/claubergran/teste_Github_VsCode/issues"
+  },
+  "homepage": "https://github.com/claubergran/teste_Github_VsCode#readme",
+  "description": ""
+}
