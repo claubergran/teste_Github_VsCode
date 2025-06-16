@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Fornecedor</title>
+</head>
+
+<body>
+    <h1>Cadastro de Fornecedor</h1>
+    <a href="/">Voltar</a>
+
+    <form method="POST" action="/fornecedores/cadastrar">
+        <label>Nome da Empresa (obrigatório):</label><br>
+        <input type="text" name="nome" placeholder="Insira o nome da empresa" required><br><br>
+
+        <label>CNPJ (obrigatório):</label><br>
+        <input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required><br><br>
+
+        <label>Endereço (obrigatório):</label><br>
+        <textarea name="endereco" placeholder="Insira o endereço completo da empresa" required></textarea><br><br>
+
+        <label>Telefone (obrigatório):</label><br>
+        <input type="text" name="telefone" id="telefone" placeholder="(00) 0000-0000" maxlength="15" required><br><br>
+
+        <label>E-mail (obrigatório):</label><br>
+        <input type="email" name="email" placeholder="exemplo@fornecedor.com" required><br><br>
+
+        <label>Contato Principal (obrigatório):</label><br>
+        <input type="text" name="contato" placeholder="Nome do contato principal" required><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+        // Máscara de CNPJ
+        document.getElementById('cnpj').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 14) value = value.slice(0, 14);
+            value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+            value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+            value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            e.target.value = value;
+        });
+
+        // Máscara de Telefone
+        document.getElementById('telefone').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length <= 10) {
+                value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            } else {
+                value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+
+</html>
