@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produto</title>
+</head>
+
+<body>
+    <h1>Cadastro de Produto</h1>
+    <a href="/">Voltar</a>
+    <form method="POST" action="/cadastrar-produto">
+        <label>Nome do Produto (obrigatório):</label><br>
+        <input type="text" name="nome" placeholder="Insira o nome do produto" required><br><br>
+
+        <label>Código de Barras (obrigatório):</label><br>
+        <input type="text" name="codigo" placeholder="Insira o código de barras" required><br><br>
+
+        <label>Descrição (obrigatório):</label><br>
+        <textarea name="descricao" placeholder="Insira a descrição do produto" required></textarea><br><br>
+
+        <label>Preço (obrigatório):</label><br>
+        <input type="number" name="preco" placeholder="Insira o preço do produto" required><br><br>
+
+        <label>Quantidade em Estoque (obrigatório):</label><br>
+        <input type="number" name="quantidade" placeholder="Insira a quantidade" required><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</body>
+
+</html>
