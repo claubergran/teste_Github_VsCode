@@ -1,59 +1,45 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { parse } = require('querystring');
+const querystring = require('querystring');
 
 const server = http.createServer((req, res) => {
     if (req.method === 'GET' && req.url === '/') {
-        fs.readFile(path.join(__dirname, 'public', 'index.html'), (err, content) => {
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            res.end(content);
+        // Servir o index.html
+        fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
+            if (err) {
+                res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+                res.end('Erro ao carregar a página.');
+            } else {
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.end(data);
+            }
         });
     } else if (req.method === 'POST' && req.url === '/cadastrar') {
+        // Receber os dados do formulário
         let body = '';
-
         req.on('data', chunk => {
             body += chunk.toString();
         });
-
         req.on('end', () => {
-            const dados = parse(body);
+            const fornecedor = querystring.parse(body);
+            console.log('Fornecedor cadastrado:', fornecedor);
 
-            // Carrega fornecedores existentes
-            let fornecedores = [];
-            if (fs.existsSync('fornecedores.json')) {
-                fornecedores = JSON.parse(fs.readFileSync('fornecedores.json'));
-            }
-
-            // Verifica duplicidade de CNPJ
-            const fornecedorExistente = fornecedores.find(f => f.cnpj === dados.cnpj);
-
-            if (fornecedorExistente) {
-                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-                res.end('<h2>Fornecedor com esse CNPJ já está cadastrado!</h2><a href="/">Voltar</a>');
-                return;
-            }
-
-            // Valida campos obrigatórios
-            if (!dados.nome || !dados.cnpj || !dados.endereco || !dados.telefone || !dados.email || !dados.contato) {
-                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-                res.end('<h2>Todos os campos são obrigatórios!</h2><a href="/">Voltar</a>');
-                return;
-            }
-
-            // Salva fornecedor
-            fornecedores.push(dados);
-            fs.writeFileSync('fornecedores.json', JSON.stringify(fornecedores, null, 2));
-
+            // Retornar mensagem de sucesso
             res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            res.end('<h2>Fornecedor cadastrado com sucesso!</h2><a href="/">Voltar</a>');
+            res.end(`
+                <h1>Fornecedor cadastrado com sucesso!</h1>
+                <a href="/">Voltar</a>
+            `);
         });
     } else {
-        res.writeHead(404);
-        res.end('Página não encontrada.');
+        // Rota não encontrada
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Página não encontrada');
     }
 });
 
 const PORT = 3000;
-server.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`));
-
+server.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}/`);
+});
