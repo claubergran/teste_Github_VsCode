@@ -3,93 +3,101 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Fornecedor</title>
     <style>
-        :root {
-            --azul-escuro: #003050;
-            --azul-medio: #005A9E;
-            --azul-claro: #1E73BE;
-            --vermelho: #E0001C;
-            --cinza: #F5F5F5;
-            --texto: #333333;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            color: var(--texto);
-            background-color: var(--cinza);
+            background-color: #f4f6f8;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: var(--azul-escuro);
+            text-align: center;
+            color: #004aad;
         }
 
-        a {
-            color: white;
-            background-color: var(--azul-medio);
-            text-decoration: none;
-            display: inline-block;
-            padding: 6px 12px;
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cccccc;
             border-radius: 4px;
-        }
-
-        a:hover {
-            background-color: var(--azul-claro);
         }
 
         button {
-            background-color: var(--azul-medio);
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #004aad;
             color: white;
             border: none;
-            padding: 8px 15px;
             border-radius: 4px;
+            margin-top: 20px;
             cursor: pointer;
+            font-size: 16px;
         }
 
         button:hover {
-            background-color: var(--azul-claro);
+            background-color: #00337a;
         }
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #004aad;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
-    <h1>Cadastro de Fornecedor</h1>
-    <a href="/">Voltar</a>
+    <div class="container">
+        <h1>Cadastro de Fornecedor</h1>
+        <a href="/">Voltar</a>
 
-    <form action="/fornecedores/cadastrar" method="POST">
-        <label for="nome">Nome da Empresa:</label>
-        <input type="text" id="nome" name="nome" placeholder="Insira o nome da empresa" required>
+        <form method="POST" action="/fornecedores/cadastrar">
+            <label>Nome da Empresa:</label>
+            <input type="text" name="nome" placeholder="Insira o nome da empresa" required>
 
-        <label for="cnpj">CNPJ:</label>
-        <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+            <label>CNPJ:</label>
+            <input type="text" name="cnpj" placeholder="00.000.000/0000-00" required>
 
-        <label for="endereco">Endereço:</label>
-        <textarea id="endereco" name="endereco" placeholder="Insira o endereço completo da empresa" required></textarea>
+            <label>Endereço:</label>
+            <input type="text" name="endereco" placeholder="Insira o endereço completo da empresa" required>
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone" placeholder="(00) 0000-0000" required>
+            <label>Telefone:</label>
+            <input type="text" name="telefone" placeholder="(00) 0000-0000" required>
 
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" placeholder="exemplo@fornecedor.com" required>
+            <label>E-mail:</label>
+            <input type="email" name="email" placeholder="exemplo@fornecedor.com" required>
 
-        <label for="contato">Contato Principal:</label>
-        <input type="text" id="contato" name="contato" placeholder="Nome do contato principal" required>
+            <label>Contato Principal:</label>
+            <input type="text" name="contato" placeholder="Nome do contato principal" required>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <button type="submit">Cadastrar Fornecedor</button>
+        </form>
+    </div>
 </body>
 
 </html>
