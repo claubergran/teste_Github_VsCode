@@ -22,42 +22,38 @@ const upload = multer({ storage });
 // Servir arquivos estáticos (ex: imagens)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// === Rota inicial ===
+// === Tela inicial ===
 app.get('/', (req, res) => {
     res.send(`
-    <h1>Bem-vindo ao sistema</h1>
-    <ul>
-      <li><a href="/fornecedores/cadastro">Cadastrar Fornecedor</a></li>
-      <li><a href="/produtos/cadastro">Cadastrar Produto</a></li>
-    </ul>
-  `);
+        <h1>Bem-vindo ao sistema</h1>
+        <ul>
+            <li><a href="/fornecedores/cadastro">Cadastrar Fornecedor</a></li>
+            <li><a href="/produtos/cadastro">Cadastrar Produto</a></li>
+            <li><a href="/produtos/associar">Associar Fornecedor a Produto</a></li>
+        </ul>
+    `);
 });
 
 // === Cadastro de Fornecedor ===
-// Rota GET - formulario
 app.get('/fornecedores/cadastro', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'cadastro-fornecedor.html'));
 });
 
-// Rota POST - recebendo dados
 app.post('/fornecedores/cadastrar', (req, res) => {
     const { nome, cnpj, endereco, telefone, email, contato } = req.body;
-    // Aqui você pode validar e salvar os dados no banco
     console.log('Fornecedor cadastrado:', { nome, cnpj, endereco, telefone, email, contato });
-    res.send('Fornecedor cadastrado com sucesso!');
+    res.send('Fornecedor cadastrado com sucesso! <a href="/">Voltar</a>');
 });
 
 // === Cadastro de Produto ===
-// Rota GET - formulario
 app.get('/produtos/cadastro', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'cadastro-produto.html'));
 });
 
-// Rota POST - recebendo dados com upload
 app.post('/produtos/cadastrar', upload.single('imagem'), (req, res) => {
     const { nome, codigoBarras, descricao, quantidade, categoria, validade } = req.body;
     const imagem = req.file;
-    // Aqui você pode validar e salvar no banco
+
     console.log('Produto cadastrado:', {
         nome,
         codigoBarras,
@@ -67,12 +63,16 @@ app.post('/produtos/cadastrar', upload.single('imagem'), (req, res) => {
         validade,
         imagem: imagem ? imagem.filename : 'Sem imagem'
     });
-    res.send('Produto cadastrado com sucesso!');
+
+    res.send('Produto cadastrado com sucesso! <a href="/">Voltar</a>');
+});
+
+// === Associação de Fornecedor a Produto ===
+app.get('/produtos/associar', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'associar-fornecedor.html'));
 });
 
 // Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
-
-

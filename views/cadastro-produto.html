@@ -2,43 +2,113 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Cadastro de Produto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #004aad;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #00337a;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #004aad;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Cadastro de Produto</h1>
-    <a href="/">Voltar</a>
-    <form method="POST" action="/produtos/cadastrar" enctype="multipart/form-data">
-        <label>Nome do Produto (obrigatório):</label><br />
-        <input type="text" name="nome" placeholder="Insira o nome do produto" required /><br /><br />
+    <div class="container">
+        <h1>Cadastro de Produto</h1>
+        <a href="/">Voltar</a>
 
-        <label>Código de Barras:</label><br />
-        <input type="number" name="codigoBarras" placeholder="Insira o código de barras" /><br /><br />
+        <form method="POST" action="/produtos/cadastrar" enctype="multipart/form-data">
+            <label>Nome do Produto (obrigatório):</label>
+            <input type="text" name="nome" placeholder="Insira o nome do produto" required>
 
-        <label>Descrição (obrigatório):</label><br />
-        <textarea name="descricao" placeholder="Descreva brevemente o produto" required></textarea><br /><br />
+            <label>Código de Barras:</label>
+            <input type="text" name="codigoBarras" placeholder="Insira o código de barras">
 
-        <label>Quantidade em Estoque:</label><br />
-        <input type="number" name="quantidade" placeholder="Quantidade disponível" /><br /><br />
+            <label>Descrição (obrigatório):</label>
+            <textarea name="descricao" placeholder="Descreva brevemente o produto" required></textarea>
 
-        <label>Categoria (obrigatório):</label><br />
-        <select name="categoria" required>
-            <option value="">Selecione a categoria</option>
-            <option value="Eletrônicos">Eletrônicos</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Vestuário">Vestuário</option>
-            <option value="Outro">Outro</option>
-        </select><br /><br />
+            <label>Quantidade em Estoque:</label>
+            <input type="number" name="quantidade" placeholder="Quantidade disponível">
 
-        <label>Data de Validade (se aplicável):</label><br />
-        <input type="date" name="validade" placeholder="Selecione a data de validade" /><br /><br />
+            <label>Categoria (obrigatório):</label>
+            <select name="categoria" required>
+                <option value="" disabled selected>Selecione uma categoria</option>
+                <option value="Eletrônicos">Eletrônicos</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Vestuário">Vestuário</option>
+                <option value="Outro">Outro</option>
+            </select>
 
-        <label>Imagem do Produto (se aplicável):</label><br />
-        <input type="file" name="imagem" accept="image/*" /><br /><br />
+            <label>Data de Validade (se aplicável):</label>
+            <input type="date" name="validade">
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            <label>Imagem do Produto (se aplicável):</label>
+            <input type="file" name="imagem" accept="image/*">
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
 </body>
 
 </html>

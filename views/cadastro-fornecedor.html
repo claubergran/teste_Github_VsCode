@@ -3,62 +3,93 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Fornecedor</title>
+    <style>
+        :root {
+            --azul-escuro: #003050;
+            --azul-medio: #005A9E;
+            --azul-claro: #1E73BE;
+            --vermelho: #E0001C;
+            --cinza: #F5F5F5;
+            --texto: #333333;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: var(--texto);
+            background-color: var(--cinza);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--azul-escuro);
+        }
+
+        a {
+            color: white;
+            background-color: var(--azul-medio);
+            text-decoration: none;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: var(--azul-claro);
+        }
+
+        button {
+            background-color: var(--azul-medio);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--azul-claro);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Cadastro de Fornecedor</h1>
     <a href="/">Voltar</a>
 
-    <form method="POST" action="/fornecedores/cadastrar">
-        <label>Nome da Empresa (obrigatório):</label><br>
-        <input type="text" name="nome" placeholder="Insira o nome da empresa" required><br><br>
+    <form action="/fornecedores/cadastrar" method="POST">
+        <label for="nome">Nome da Empresa:</label>
+        <input type="text" id="nome" name="nome" placeholder="Insira o nome da empresa" required>
 
-        <label>CNPJ (obrigatório):</label><br>
-        <input type="text" name="cnpj" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required><br><br>
+        <label for="cnpj">CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
 
-        <label>Endereço (obrigatório):</label><br>
-        <textarea name="endereco" placeholder="Insira o endereço completo da empresa" required></textarea><br><br>
+        <label for="endereco">Endereço:</label>
+        <textarea id="endereco" name="endereco" placeholder="Insira o endereço completo da empresa" required></textarea>
 
-        <label>Telefone (obrigatório):</label><br>
-        <input type="text" name="telefone" id="telefone" placeholder="(00) 0000-0000" maxlength="15" required><br><br>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" placeholder="(00) 0000-0000" required>
 
-        <label>E-mail (obrigatório):</label><br>
-        <input type="email" name="email" placeholder="exemplo@fornecedor.com" required><br><br>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" placeholder="exemplo@fornecedor.com" required>
 
-        <label>Contato Principal (obrigatório):</label><br>
-        <input type="text" name="contato" placeholder="Nome do contato principal" required><br><br>
+        <label for="contato">Contato Principal:</label>
+        <input type="text" id="contato" name="contato" placeholder="Nome do contato principal" required>
 
         <button type="submit">Cadastrar</button>
     </form>
-
-    <script>
-        // Máscara de CNPJ
-        document.getElementById('cnpj').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 14) value = value.slice(0, 14);
-            value = value.replace(/^(\d{2})(\d)/, '$1.$2');
-            value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-            value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
-            value = value.replace(/(\d{4})(\d)/, '$1-$2');
-            e.target.value = value;
-        });
-
-        // Máscara de Telefone
-        document.getElementById('telefone').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
-
-            if (value.length <= 10) {
-                value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
-                value = value.replace(/(\d{4})(\d)/, '$1-$2');
-            } else {
-                value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
-                value = value.replace(/(\d{5})(\d)/, '$1-$2');
-            }
-            e.target.value = value;
-        });
-    </script>
 </body>
 
 </html>
